@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1.0, user-scalable=0">
+  <link rel='stylesheet' href='/css/style.css' />
+  <script type="text/javascript" src="/js/jquery.js"></script>
+  <script type="text/javascript" src="/js/socket.io.js"></script>
+  <script type="text/javascript" src="/js/script.js"></script>
+  <script>
+
+  </script>
+</head>
+
+<body>
+  <h1>
+    <%= title %>
+  </h1>
+  <p>Welcome to
+    <%= title %>
+  </p>
+  <div class="wraper clearfix">
+    <div class="left">
+      <div style="text-align:center;" class="circle">
+        <div class="line" data-deg="0"></div>
+      </div>
+      <div style="text-align:center">
+        <button style="height: 100px;width:200px;" onclick="buttonArrow(65)">Rotate LEFT</button>
+        <button style="height: 100px;width:200px;" onclick="buttonArrow(83)">Rotate RIGHT</button><br><br>
+      </div>
+    </div>
+    <!-- <div class="center">
+    </div> -->
+    <div class="right">
+      <div style="text-align:center;width:680px;">
+        <button style="height: 100px;width:200px;" onclick="buttonArrow(38)">UP</button><br><br>
+        <button style="height: 100px;width:200px;" onclick="buttonArrow(37)">LEFT</button>
+        <button style="height: 100px;width:200px;" onclick="buttonArrow(39)">RIGHT</button><br><br>
+        <button style="height: 100px;width:200px;" onclick="buttonArrow(40)">DOWN</button>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>
