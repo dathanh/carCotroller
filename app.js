@@ -7,7 +7,9 @@ var credentials = {'key': privateKey, 'cert': certificate};
 var app = express();
 var server = require('http').Server(app);
 var httpsServer = https.Server(credentials, app);
-
+var Gpio =require('onoff').Gpio;
+var pin23 = new Gpio(23,'out');
+var pin24 =new Gpio(24,'out')
 var io = require('socket.io')(server);
 
 var multer = require('multer')
@@ -15,7 +17,7 @@ var constants = require('constants');
 var constant = require('./config/constants');
 
 
-var port = process.env.PORT || 8042;
+var port = process.env.PORT || 8080;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('connect-flash');
@@ -82,9 +84,34 @@ io.on('connection', function(socket) {
 
   socket.on('keypress', function(data) {
     console.log('Người kết nối ' + socket.id + ' nhấn nút '+ data.keypress);
+    switch(data.keypress){
+	case 'left':
+		turnLeft();
+		break;
+	case 'right':
+		turnRight();
+		break;
+	case 'up' :
+		stop();
+	}
   });
 
 });
+
+function turnLeft(){
+  pin23.writeSync(1);
+  pin24.writeSync(0);
+}
+function turnRight(){
+  pin23.writeSync(0);
+  pin24.writeSync(1);
+}
+function stop(){
+  pin23.writeSync(0);
+  pin24.writeSync(0);
+}
+
+
 console.log('The magic happens on port ' + port);
 
 //catch 404 and forward to error handler

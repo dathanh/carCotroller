@@ -1,4 +1,4 @@
-var socket = io('http://192.168.1.243:8042');
+var socket = io('http://14.186.118.112:8080');
 socket.on('news', function(data) {
   console.log(data);
 
