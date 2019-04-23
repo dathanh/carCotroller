@@ -207,7 +207,7 @@ watcher.on('change', function(file) {
 
     fs.readFile(file, function(err, imageData) {
         if (!err) {
-          console.log('runnnnn');
+          var imageConvert ='data:image/jpeg;base64,'+ imageData.toString('base64')
         }
         else {
             console.log(err);
