@@ -1,6 +1,6 @@
-var socket = io('http://14.186.118.112:8080');
-socket.on('news', function(data) {
-  console.log(data);
+var socket = io('http://192.168.1.153:8080');
+socket.on('video', function(data) {
+  $('.wraper').css({backgroundImage:'url("'+data.imageConvert+'")'});
 
 });
 var currentDeg = 0;
