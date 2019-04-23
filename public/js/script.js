@@ -47,7 +47,7 @@ $(document).ready(function() {
         console.log(e.keyCode);
         break;
     }
-    // e.preventDefault(); // prevent the default action (scroll / move caret)
+     e.preventDefault(); // prevent the default action (scroll / move caret)
     socket.emit('keypress', {
       'keypress': ketPress,
     });

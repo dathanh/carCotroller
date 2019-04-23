@@ -34,6 +34,7 @@
     "passport": "latest",
     "passport-local": "latest",
     "pm2": "latest",
+    "raspberry-pi-mjpeg-server": "^1.0.3",
     "request": "latest",
     "serve-favicon": "~2.3.0",
     "simple-encryptor": "latest",

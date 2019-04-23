@@ -8,8 +8,10 @@ var app = express();
 var server = require('http').Server(app);
 var httpsServer = https.Server(credentials, app);
 var Gpio =require('onoff').Gpio;
-var pin23 = new Gpio(23,'out');
-var pin24 =new Gpio(24,'out')
+var pin6 = new Gpio(6,'out');
+var pin13 =new Gpio(13,'out');
+var pin19 =new Gpio(19,'out')
+var pin26 =new Gpio(26,'out')
 var io = require('socket.io')(server);
 
 var multer = require('multer')
@@ -92,23 +94,57 @@ io.on('connection', function(socket) {
 		turnRight();
 		break;
 	case 'up' :
-		stop();
+		goHead();
+		break;
+	case 'down' :
+		goBack();
+		break;
 	}
   });
 
 });
 
+function goHead(){
+  pin6.writeSync(1);
+  pin13.writeSync(0);
+  pin19.writeSync(0);
+  pin26.writeSync(1);
+  setTimeout(function(){
+	stop();
+  },100);
+}
 function turnLeft(){
-  pin23.writeSync(1);
-  pin24.writeSync(0);
+  pin6.writeSync(1);
+  pin13.writeSync(0);
+  pin19.writeSync(1);
+  pin26.writeSync(0);
+  setTimeout(function(){
+	stop();
+  },100);
 }
 function turnRight(){
-  pin23.writeSync(0);
-  pin24.writeSync(1);
+  pin6.writeSync(0);
+  pin13.writeSync(1);
+  pin19.writeSync(0);
+  pin26.writeSync(1);
+  setTimeout(function(){
+	stop();
+  },100);
+}
+function goBack(){
+  pin6.writeSync(0);
+  pin13.writeSync(1);
+  pin19.writeSync(1);
+  pin26.writeSync(0);
+  setTimeout(function(){
+	stop();
+  },50);
 }
 function stop(){
-  pin23.writeSync(0);
-  pin24.writeSync(0);
+  pin6.writeSync(0);
+  pin13.writeSync(0);
+  pin19.writeSync(0);
+  pin26.writeSync(0);
 }
 
 
