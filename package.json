@@ -40,6 +40,10 @@
     "simple-encryptor": "latest",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
-    "underscore": "latest"
+    "underscore": "latest",
+    "chokidar": "^1.6.0",
+    "commander": "^2.9.0",
+    "ip": "^1.1.4",
+    "pubsub-js": "~1.5.2"
   }
 }
