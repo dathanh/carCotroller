@@ -145,32 +145,6 @@ io.on('connection', function(socket) {
 		break;
 	}
   });
-  var tmpFile = path.resolve(path.join(tmpFolder, tmpImage));
-
-  // start watching the temp image for changes
-  var watcher = chokidar.watch(tmpFile, {
-    persistent: true,
-    usePolling: true,
-    interval: 10,
-  });
-
-  // hook file change events and send the modified image to the browser
-  watcher.on('change', function(file) {
-
-      //console.log('change >>> ', file);
-
-      fs.readFile(file, function(err, imageData) {
-          if (!err) {
-            var imageConvert ='data:image/jpeg;base64,'+ imageData.toString('base64');
-            socket.emit('video', {
-              'imageConvert': imageConvert,
-            });
-          }
-          else {
-              console.log(err);
-          }
-      });
-  });
 
 });
 
