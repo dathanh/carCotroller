@@ -7,11 +7,11 @@ var credentials = {'key': privateKey, 'cert': certificate};
 var app = express();
 var server = require('http').Server(app);
 var httpsServer = https.Server(credentials, app);
-// var Gpio =require('onoff').Gpio;
-// var pin6 = new Gpio(6,'out');
-// var pin13 =new Gpio(13,'out');
-// var pin19 =new Gpio(19,'out')
-// var pin26 =new Gpio(26,'out')
+var Gpio =require('onoff').Gpio;
+var pin6 = new Gpio(6,'out');
+var pin13 =new Gpio(13,'out');
+var pin19 =new Gpio(19,'out')
+var pin26 =new Gpio(26,'out')
 var io = require('socket.io')(server);
 
 var multer = require('multer')
@@ -125,28 +125,53 @@ var width = program.width || 640,
     boundaryID = "BOUNDARY";
 
 
-// io.on('connection', function(socket) {
-//   console.log('Có người kết nối ' + socket.id);
-//
-//   socket.on('keypress', function(data) {
-//     console.log('Người kết nối ' + socket.id + ' nhấn nút '+ data.keypress);
-//     switch(data.keypress){
-// 	case 'left':
-// 		turnLeft();
-// 		break;
-// 	case 'right':
-// 		turnRight();
-// 		break;
-// 	case 'up' :
-// 		goHead();
-// 		break;
-// 	case 'down' :
-// 		goBack();
-// 		break;
-// 	}
-//   });
-//
-// });
+io.on('connection', function(socket) {
+  console.log('Có người kết nối ' + socket.id);
+
+  socket.on('keypress', function(data) {
+    console.log('Người kết nối ' + socket.id + ' nhấn nút '+ data.keypress);
+    switch(data.keypress){
+	case 'left':
+		turnLeft();
+		break;
+	case 'right':
+		turnRight();
+		break;
+	case 'up' :
+		goHead();
+		break;
+	case 'down' :
+		goBack();
+		break;
+	}
+  });
+  var tmpFile = path.resolve(path.join(tmpFolder, tmpImage));
+
+   // start watching the temp image for changes
+   var watcher = chokidar.watch(tmpFile, {
+     persistent: true,
+     usePolling: true,
+     interval: 10,
+   });
+
+   // hook file change events and send the modified image to the browser
+   watcher.on('change', function(file) {
+
+       //console.log('change >>> ', file);
+
+       fs.readFile(file, function(err, imageData) {
+           if (!err) {
+             var imageConvert ='data:image/jpeg;base64,'+ imageData.toString('base64');
+             socket.emit('video', {
+               'imageConvert': imageConvert,
+             });
+           }
+           else {
+               console.log(err);
+           }
+       });
+   });
+});
 
 function goHead(){
   pin6.writeSync(1);
