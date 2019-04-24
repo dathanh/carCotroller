@@ -7,11 +7,11 @@ var credentials = {'key': privateKey, 'cert': certificate};
 var app = express();
 var server = require('http').Server(app);
 var httpsServer = https.Server(credentials, app);
-var Gpio =require('onoff').Gpio;
-var pin6 = new Gpio(6,'out');
-var pin13 =new Gpio(13,'out');
-var pin19 =new Gpio(19,'out')
-var pin26 =new Gpio(26,'out')
+// var Gpio =require('onoff').Gpio;
+// var pin6 = new Gpio(6,'out');
+// var pin13 =new Gpio(13,'out');
+// var pin19 =new Gpio(19,'out')
+// var pin26 =new Gpio(26,'out')
 var io = require('socket.io')(server);
 
 var multer = require('multer')
@@ -125,28 +125,28 @@ var width = program.width || 640,
     boundaryID = "BOUNDARY";
 
 
-io.on('connection', function(socket) {
-  console.log('Có người kết nối ' + socket.id);
-
-  socket.on('keypress', function(data) {
-    console.log('Người kết nối ' + socket.id + ' nhấn nút '+ data.keypress);
-    switch(data.keypress){
-	case 'left':
-		turnLeft();
-		break;
-	case 'right':
-		turnRight();
-		break;
-	case 'up' :
-		goHead();
-		break;
-	case 'down' :
-		goBack();
-		break;
-	}
-  });
-
-});
+// io.on('connection', function(socket) {
+//   console.log('Có người kết nối ' + socket.id);
+//
+//   socket.on('keypress', function(data) {
+//     console.log('Người kết nối ' + socket.id + ' nhấn nút '+ data.keypress);
+//     switch(data.keypress){
+// 	case 'left':
+// 		turnLeft();
+// 		break;
+// 	case 'right':
+// 		turnRight();
+// 		break;
+// 	case 'up' :
+// 		goHead();
+// 		break;
+// 	case 'down' :
+// 		goBack();
+// 		break;
+// 	}
+//   });
+//
+// });
 
 function goHead(){
   pin6.writeSync(1);
