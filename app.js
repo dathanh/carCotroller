@@ -12,6 +12,11 @@ var pin6 = new Gpio(6,'out');
 var pin13 =new Gpio(13,'out');
 var pin19 =new Gpio(19,'out')
 var pin26 =new Gpio(26,'out')
+
+const gpioPWM = require('pigpio').Gpio;
+const pin10PWM = new gpioPWM(10, {mode: gpioPWM.OUTPUT});
+let pulseWidth = 1000;
+let increment = 100;
 var io = require('socket.io')(server);
 
 var multer = require('multer')
@@ -141,7 +146,7 @@ io.on('connection', function(socket) {
 		goHead();
 		break;
 	case 'down' :
-		goBack();
+		testPWM();
 		break;
 	}
   });
@@ -216,6 +221,18 @@ function stop(){
   pin26.writeSync(0);
 }
 
+function testPWM(){
+setInterval(() => {
+  pin10PWM.servoWrite(pulseWidth);
+ 
+  pulseWidth += increment;
+  if (pulseWidth >= 2000) {
+    increment = -100;
+  } else if (pulseWidth <= 1000) {
+    increment = 100;
+  }
+}, 1000);
+}
 
 // setup the camera
 var camera = new PiCamera();
