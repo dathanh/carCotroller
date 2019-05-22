@@ -25,7 +25,10 @@ $(document).ready(function() {
         console.log('Down key pressed');
         break;
       case 65: //A
-        currentDeg -= 30;
+        currentDeg -= 20;
+	if(currentDeg<=0){
+	 currentDeg=0;
+	}
         console.log(currentDeg);
         console.log('A key pressed');
         var ketPress = 'rotate left ' + currentDeg + ' deg';
@@ -34,7 +37,10 @@ $(document).ready(function() {
         });
         break;
       case 83: //S
-        currentDeg += 30;
+        currentDeg += 20;
+	if(currentDeg >=180){
+	 currentDeg= 180;
+	}
         console.log(currentDeg);
         console.log('S key pressed');
         var ketPress = 'rotate right ' + currentDeg + ' deg';
@@ -73,19 +79,25 @@ function buttonArrow(kepCode) {
       console.log('Down key pressed');
       break;
     case 65: //A
-      currentDeg -= 30;
+      currentDeg -= 20;
+	if(currentDeg<=0){
+	 currentDeg=0;
+	}
       console.log(currentDeg);
       console.log('A key pressed');
-      var ketPress = 'rotate left ' + currentDeg + ' deg';
+      var ketPress = 'rotate left';
       $('.line').css({
         'transform': 'rotate(' + currentDeg + 'deg)'
       });
       break;
     case 83: //S
-      currentDeg += 30;
+      currentDeg += 20;
+   if(currentDeg >=180){
+	 currentDeg= 180;
+	}
       console.log(currentDeg);
       console.log('S key pressed');
-      var ketPress = 'rotate right ' + currentDeg + ' deg';
+      var ketPress = 'rotate right';
       $('.line').css({
         'transform': 'rotate(' + currentDeg + 'deg)'
       });

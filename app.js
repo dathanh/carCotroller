@@ -14,7 +14,7 @@ var pin19 =new Gpio(19,'out')
 var pin26 =new Gpio(26,'out')
 
 const gpioPWM = require('pigpio').Gpio;
-const pin10PWM = new gpioPWM(10, {mode: gpioPWM.OUTPUT});
+const pin10PWM = new gpioPWM(18, {mode: gpioPWM.OUTPUT});
 let pulseWidth = 1000;
 let increment = 100;
 var io = require('socket.io')(server);
@@ -146,7 +146,13 @@ io.on('connection', function(socket) {
 		goHead();
 		break;
 	case 'down' :
-		testPWM();
+		goBack();
+		break;
+	case 'rotate left':
+		rotateLeft();
+		break;
+	case 'rotate right':
+		rotateRight();
 		break;
 	}
   });
@@ -220,10 +226,28 @@ function stop(){
   pin19.writeSync(0);
   pin26.writeSync(0);
 }
+function rotateLeft(){
+  pulseWidth += increment;
+  if (pulseWidth >= 2400) {
+    pulseWidth = 2400;
+  }
+  pin10PWM.servoWrite(pulseWidth);
+ 
+}
+function rotateRight(){
+  pulseWidth -= increment;
+  if (pulseWidth <= 500) {
+    pulseWidth = 500;
+  }
+  pin10PWM.servoWrite(pulseWidth);
+
+  
+}
 
 function testPWM(){
 setInterval(() => {
   pin10PWM.servoWrite(pulseWidth);
+  console.log(pin10PWM.getServoPulseWidth());
  
   pulseWidth += increment;
   if (pulseWidth >= 2000) {
@@ -235,7 +259,7 @@ setInterval(() => {
 }
 
 // setup the camera
-var camera = new PiCamera();
+/*var camera = new PiCamera();
 
 // start image capture
 camera
@@ -251,7 +275,7 @@ camera
     .contrast(contrast)
     .brightness(brightness)
     .saturation(saturation)
-.takePicture(tmpImage);
+.takePicture(tmpImage); */
 
 
 console.log('The magic happens on port ' + port);
