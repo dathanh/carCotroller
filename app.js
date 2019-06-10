@@ -1,9 +1,7 @@
 var express = require("express");
 var fs = require("fs");
-var https = require("https");
 var app = express();
 var server = require("http").Server(app);
-var httpsServer = https.Server(credentials, app);
 var Gpio = require("onoff").Gpio;
 var pin6 = new Gpio(6, "out");
 var pin13 = new Gpio(13, "out");
@@ -74,7 +72,6 @@ var width = program.width || 640,
 
 io.on("connection", function(socket) {
   console.log("Có người kết nối " + socket.id);
-
   socket.on("keypress", function(data) {
     console.log("Người kết nối " + socket.id + " nhấn nút " + data.keypress);
     switch (data.keypress) {
@@ -98,6 +95,7 @@ io.on("connection", function(socket) {
         break;
     }
   });
+});
 
 function goHead() {
   pin6.writeSync(1);
@@ -169,8 +167,6 @@ function testPWM() {
     }
   }, 1000);
 }
-
-
 
 console.log("The magic happens on port " + port);
 
