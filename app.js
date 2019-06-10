@@ -51,6 +51,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "app/views"));
 app.set("view engine", "ejs");
 
+passport='';
 // routes ======================================================================
 require("./config/routes.js")(app, passport); // load our routes and pass in our app and fully configured passport
 
