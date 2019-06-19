@@ -1,10 +1,12 @@
-var socket = io('http://192.168.1.153:8080');
+var socket ="";
+var currentDeg = 0;
+$(document).ready(function() {
+var ipAddress= $('#ipAddress').val();
+socket = io('http://'+ipAddress+':8080');
 socket.on('video', function(data) {
   $('.wraper').css({backgroundImage:'url("'+data.imageConvert+'")'});
 
 });
-var currentDeg = 0;
-$(document).ready(function() {
   document.onkeydown = function(e) {
     e = e || window.event;
     switch (e.keyCode) {

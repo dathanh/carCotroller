@@ -25,7 +25,7 @@
   <!-- <div class="wraper clearfix"  style="background-image:url('/img/test.jpg'); background-size: cover; background-position: center;"> -->
     <div>
 	<div>
-	<iframe width="660" height="500" src="http://192.168.1.153:8040" ></iframe>
+	<iframe width="660" height="500" src="http://<%= ip %>:8040" ></iframe>
 	</div>
     <div class="left">
       <div style="text-align:center;" class="circle">
@@ -44,7 +44,7 @@
         <button class="btnCtl" onclick="buttonArrow(40)">DOWN</button>
       </div>
     </div>
-
+	<input id="ipAddress" type="hidden" value="<%= ip %>" name="ipAddress" />
   </div>
 </body>
 
