@@ -33,7 +33,7 @@ socket.on('video', function(data) {
 	}
         console.log(currentDeg);
         console.log('A key pressed');
-        var ketPress = 'rotate left ' + currentDeg + ' deg';
+        var ketPress = 'rotate right';
         $('.line').css({
           'transform': 'rotate(' + currentDeg + 'deg)'
         });
@@ -45,7 +45,7 @@ socket.on('video', function(data) {
 	}
         console.log(currentDeg);
         console.log('S key pressed');
-        var ketPress = 'rotate right ' + currentDeg + ' deg';
+        var ketPress = 'rotate left';
         $('.line').css({
           'transform': 'rotate(' + currentDeg + 'deg)'
         });
